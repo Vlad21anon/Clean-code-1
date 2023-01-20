@@ -8,6 +8,7 @@ import com.ukadovlad21.data.repository.UserRepositoryImpl
 import com.ukadovlad21.data.storage.sharedprefs.SharedPrefUserStorage
 import com.ukadovlad21.domain.usecase.GetUserNameUseCase
 import com.ukadovlad21.domain.usecase.SaveUserNameUseCase
+import javax.inject.Inject
 
 class MainViewModel(
     private val getUserNameUseCase: GetUserNameUseCase,
