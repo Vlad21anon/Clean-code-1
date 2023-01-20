@@ -6,16 +6,12 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.ukadovlad21.cleanarch.R
-import com.ukadovlad21.data.repository.UserRepositoryImpl
-import com.ukadovlad21.data.storage.sharedprefs.SharedPrefUserStorage
-import com.ukadovlad21.domain.usecase.GetUserNameUseCase
-import com.ukadovlad21.domain.usecase.SaveUserNameUseCase
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var vm: MainViewModel
+
+    private val vm by viewModel<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
         Log.e("AAA", "Activity created")
 
-        vm = ViewModelProvider(this, MainViewModelFactory(this))[MainViewModel::class.java]
+//        val vm = ViewModelProvider(this,MainViewModelFactory(applicationContext))[MainViewModel::class.java]
 
         val dataTextView = findViewById<TextView>(R.id.dataTextView)
         val dataEditText = findViewById<EditText>(R.id.dataEditText)
@@ -45,3 +41,24 @@ class MainActivity : AppCompatActivity() {
 
     }
 }
+
+//class MainViewModelFactory(applicationContext: Context) : ViewModelProvider.Factory {
+//
+//
+//    private val userRepository by lazy(LazyThreadSafetyMode.NONE) {
+//        UserRepositoryImpl(SharedPrefUserStorage(applicationContext))
+//    }
+//    private val getUserNameUseCase by lazy(LazyThreadSafetyMode.NONE) {
+//        GetUserNameUseCase(userRepository)
+//    }
+//    private val saveUserNameUseCase by lazy(LazyThreadSafetyMode.NONE) {
+//        SaveUserNameUseCase(userRepository)
+//    }
+//
+//
+//    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+//        return MainViewModel(
+//            getUserNameUseCase = getUserNameUseCase,
+//            saveUserNameUseCase = saveUserNameUseCase) as T
+//    }
+//}

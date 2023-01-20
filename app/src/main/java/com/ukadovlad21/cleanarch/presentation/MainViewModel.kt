@@ -14,9 +14,8 @@ class MainViewModel(
     private val saveUserNameUseCase: SaveUserNameUseCase,
 ) : ViewModel() {
 
-    private var resultLiveMutable = MutableLiveData<String>()
-
-    val resultLive: LiveData<String> = resultLiveMutable
+    private var _resultLive = MutableLiveData<String>()
+    val resultLive: LiveData<String> = _resultLive
 
     init {
         Log.e("AAA", "VM Created")
@@ -34,12 +33,12 @@ class MainViewModel(
     fun save(text: String) {
         val params = com.ukadovlad21.domain.models.SaveUserNameParam(text)
         val resultData = saveUserNameUseCase.execute(params)
-        resultLiveMutable.value = "Save result = $resultData"
+        _resultLive.value = "Save result = $resultData"
     }
 
 
     fun load() {
         val userName: com.ukadovlad21.domain.models.UserName = getUserNameUseCase.execute()
-        resultLiveMutable.value = "${userName.firstname} ${userName.lastname}"
+        _resultLive.value = "${userName.firstname} ${userName.lastname}"
     }
 }
