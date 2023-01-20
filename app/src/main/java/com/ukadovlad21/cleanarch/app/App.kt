@@ -1,25 +1,21 @@
 package com.ukadovlad21.cleanarch.app
 
 import android.app.Application
-import com.ukadovlad21.cleanarch.di.appModule
-import com.ukadovlad21.cleanarch.di.dataModule
-import com.ukadovlad21.cleanarch.di.domainModule
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
-import org.koin.core.context.startKoin
-import org.koin.core.logger.Level
+import com.ukadovlad21.cleanarch.di.AppComponent
+import com.ukadovlad21.cleanarch.di.AppModule
+import com.ukadovlad21.cleanarch.di.DaggerAppComponent
 
 class App : Application() {
+
+    lateinit var appComponent: AppComponent
+
     override fun onCreate() {
         super.onCreate()
 
-
-        startKoin {
-            androidLogger(Level.DEBUG)
-
-//            androidContext(this@App)
-            modules(listOf(appModule, domainModule, dataModule))
-        }
+        appComponent = DaggerAppComponent
+            .builder()
+            .appModule(AppModule(context = this))
+            .build()
 
     }
 }
